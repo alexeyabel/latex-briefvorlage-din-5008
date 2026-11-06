@@ -9,6 +9,12 @@ Ein Teil der Elemente ist auskommentiert und kann bei Bedarf aktiviert werden. Z
 
 [Latex-Briefvorlage.tex](https://github.com/PanCakeConnaisseur/latex-briefvorlage-din-5008/blob/master/Latex-Briefvorlage.tex) ist alles was benötigt wird, es gibt bewusst keine Includes. Alle anderen Dateien sind Beispiele und Dokumentation.
 
+## Briefform und Informationsblock
+
+Die Vorlage lädt mit `\LoadLetterOption{DIN5008B}` die Briefform B. Für Form A genügt es, dort `DIN5008A` einzutragen. Benötigt wird KOMA-Script mit den Dateien `DIN5008A.lco` und `DIN5008B.lco` (ab Version 3.26).
+
+Telefon, Fax, E-Mail, Website, Datum und gesetzte Bezugszeichen erscheinen im Informationsblock rechts neben dem Anschriftfeld. Leere Angaben entfallen; zum Ausblenden einer Angabe den zugehörigen `\setkomavar`-Eintrag auskommentieren (beim automatisch vorbelegten Datum stattdessen `\setkomavar{date}{}`).
+
 ## Screenshots
 
 ### Briefvorlage mit Standardoptionen

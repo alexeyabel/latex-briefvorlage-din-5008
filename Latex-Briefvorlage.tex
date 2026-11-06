@@ -13,20 +13,11 @@
 	% Papierformat auf DIN-A4
 	paper=A4,
 	%
-	% Briefkopf (ganz oben) rechts ausrichten, standardmäßig links
-	fromalign=right,
-	%
-	% Telefonnummer im Briefkopf anzeigen
-	fromphone=true,
-	%
-	% Faxnnummer im Briefkopf anzeigen
-	%fromfax=true,
-	%
-	% E-Mail-Adresse im Briefkopf anzeigen
-	fromemail=true,
-	%
-	% URL im Briefkopf anzeigen
-	%fromurl=true,
+	% Kontaktdaten stehen im Informationsblock statt im Briefkopf
+	fromphone=false,
+	fromfax=false,
+	fromemail=false,
+	fromurl=false,
 	%
 	% Faltmarkierungen verbergen
 	%foldmarks=false,
@@ -34,6 +25,14 @@
 	% Die neuste Version von scrlettr2 verwenden
 	version=last,
 ]{scrlttr2}
+
+% Briefform B; für Form A hier DIN5008A einsetzen
+\LoadLetterOption{DIN5008B}
+
+% Name und Anschrift weiterhin oben rechts, weitere Angaben im Informationsblock
+\KOMAoptions{fromalign=right,firsthead=true,refline=nodate}
+\setplength{firstheadwidth}{\textwidth}
+\removereffields
 
 % Zeichenkodierung des Dokuments ist in UTF-8
 \usepackage[utf8]{inputenc}
@@ -61,6 +60,22 @@
 % Für Schlussformel (und nicht vorhandenen Namen darunter) Linksbündigkeit erzwingen
 %\renewcommand*{\raggedsignature}{\raggedright}
 
+% Informationsblock rechts neben dem Anschriftfeld; leere Angaben entfallen
+\setkomavar{location}{%
+	\raggedright\usekomafont{fromaddress}%
+	\setlength{\parskip}{0pt}%
+	\Ifkomavarempty{yourref}{}{\usekomavar*{yourref}: \usekomavar{yourref}\par}%
+	\Ifkomavarempty{yourmail}{}{\usekomavar*{yourmail}: \usekomavar{yourmail}\par}%
+	\Ifkomavarempty{myref}{}{\usekomavar*{myref}: \usekomavar{myref}\par}%
+	\Ifkomavarempty{customer}{}{\usekomavar*{customer}: \usekomavar{customer}\par}%
+	\Ifkomavarempty{invoice}{}{\usekomavar*{invoice}: \usekomavar{invoice}\par}%
+	\Ifkomavarempty{fromphone}{}{\usekomavar*{fromphone}\usekomavar{fromphone}\par}%
+	\Ifkomavarempty{fromfax}{}{\usekomavar*{fromfax}\usekomavar{fromfax}\par}%
+	\Ifkomavarempty{fromemail}{}{\usekomavar*{fromemail}\usekomavar{fromemail}\par}%
+	\Ifkomavarempty{fromurl}{}{\usekomavar*{fromurl}\usekomavar{fromurl}\par}%
+	\Ifkomavarempty{date}{}{\usekomavar*{date}: \usekomavar{date}\par}%
+}
+
 
 \begin{document}
 
@@ -74,7 +89,6 @@
 \setkomavar{fromphone}{+49 123 456 789}
 
 % Absenderfax
-% (oben fromfax=true setzen)
 %\setkomavar{fromfax}{+49 222 222 22}
 
 % Absender-E-Mail-Adresse
@@ -82,7 +96,6 @@
 \setkomavar{fromemail}{\href{mailto:anton@absender.de}{anton@absender.de}}
 
 % Absender-URL
-% (oben fromurl=true setzen)
 % eckige Klammern entfernen damit "URL:" erscheint oder dort Alternativtext eintragen
 % der erste Parameter ist fürs Klicken, der zweite wird angezeigt/gedruckt
 \setkomavar{fromurl}[]{\href{http://absender.de}{absender.de}}
@@ -98,6 +111,9 @@
 
 % Ihr Zeichen
 %\setkomavar{yourref}[\yourrefname]{IZ-12345}
+
+% Unser Zeichen
+%\setkomavar{myref}{AZ-12345}
 
 % Ihr Schreiben vom
 %\setkomavar{yourmail}[\yourmailname]{1. April 2018}
